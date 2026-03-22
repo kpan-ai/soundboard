@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soundboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Custom titlebar -->
+<div class="titlebar" id="titlebar">
+  <div class="titlebar-drag">
+    <span class="app-logo">▣</span>
+    <span class="app-name">SOUNDBOARD</span>
+  </div>
+  <div class="titlebar-controls">
+    <button class="tb-btn" id="btn-minimize" title="Minimize">─</button>
+    <button class="tb-btn" id="btn-maximize" title="Maximize">□</button>
+    <button class="tb-btn tb-close" id="btn-close" title="Close">✕</button>
+  </div>
+</div>
+
+<!-- Layout -->
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">OUTPUT</div>
+      <div class="device-block">
+        <div class="device-row">
+          <span class="device-icon">◈</span>
+          <div class="device-info">
+            <span class="device-role">Discord</span>
+            <select id="discord-out" class="device-select">
+              <option value="">Loading...</option>
+            </select>
+          </div>
+        </div>
+        <div id="vm-hint" class="vm-hint" style="display:none">
+          Voicemeeter detected — set your mic as Hardware Input 1 in Banana, then Discord input to Voicemeeter Output.
+        </div>
+        <div class="device-row" style="margin-top:10px">
+          <span class="device-icon">◎</span>
+          <div class="device-info">
+            <span class="device-role">Monitor</span>
+            <select id="monitor-out" class="device-select">
+              <option value="">None</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">VOLUME</div>
+      <div class="vol-wrap">
+        <input type="range" id="master-volume" min="0" max="100" value="80" />
+        <span class="vol-display" id="vol-display">80%</span>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">FILTERS</div>
+      <div id="tag-list" class="tag-list">
+        <div class="tag-pill active" data-tag="all">All</div>
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="status-dot" id="status-dot"></div>
+      <span class="status-text" id="status-text">Ready</span>
+    </div>
+  </aside>
+
+  <!-- Main area -->
+  <main class="main">
+
+    <div class="main-toolbar">
+      <div class="search-wrap">
+        <span class="search-icon">⌕</span>
+        <input type="text" id="search" class="search-input" placeholder="search sounds..." />
+      </div>
+      <div class="toolbar-right">
+        <button class="btn-ghost" id="btn-stop-all" title="Stop all sounds">■ Stop all</button>
+        <button class="btn-ghost btn-myinstants" id="btn-myinstants">⬇ MyInstants</button>
+        <button class="btn-primary" id="btn-add">+ Add sounds</button>
+      </div>
+    </div>
+
+    <div class="sound-grid" id="sound-grid">
+      <!-- Sounds injected here -->
+    </div>
+
+    <div class="empty-state" id="empty-state">
+      <div class="empty-icon">◈</div>
+      <div class="empty-title">No sounds yet</div>
+      <div class="empty-sub">Click "Add sounds" to import audio files</div>
+      <button class="btn-primary" id="btn-add-empty">+ Add sounds</button>
+    </div>
+
+  </main>
+</div>
+
+<!-- Hotkey bind modal -->
+<div class="modal-overlay" id="hotkey-modal" style="display:none">
+  <div class="modal">
+    <div class="modal-title">Set hotkey</div>
+    <div class="modal-sub" id="modal-sound-name"></div>
+    <div class="hotkey-display" id="hotkey-display">Press a key...</div>
+    <div class="modal-hint">Press Escape to clear the hotkey</div>
+    <div class="modal-btns">
+      <button class="btn-ghost" id="modal-cancel">Cancel</button>
+      <button class="btn-primary" id="modal-save">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Rename modal -->
+<div class="modal-overlay" id="rename-modal" style="display:none">
+  <div class="modal">
+    <div class="modal-title">Rename sound</div>
+    <input type="text" id="rename-input" class="rename-input" placeholder="Sound name..." />
+    <div class="modal-btns">
+      <button class="btn-ghost" id="rename-cancel">Cancel</button>
+      <button class="btn-primary" id="rename-save">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- MyInstants modal -->
+<div class="modal-overlay" id="myinstants-modal" style="display:none">
+  <div class="modal">
+    <div class="modal-title">⬇ Import from MyInstants</div>
+    <div class="modal-sub">Paste a myinstants.com URL to download and add the sound</div>
+    <input type="text" id="myinstants-url" class="rename-input" placeholder="https://www.myinstants.com/instant/..." />
+    <div id="myinstants-status" class="myinstants-status" style="display:none"></div>
+    <div class="modal-btns">
+      <button class="btn-ghost" id="myinstants-cancel">Cancel</button>
+      <button class="btn-primary" id="myinstants-import">Import</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{
+  "name": "soundboard",
+  "version": "1.0.0",
+  "description": "A clean soundboard app for Discord via Voicemeeter",
+  "main": "main.js",
+  "author": "kiyaan",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win"
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.0.0"
+  },
+  "build": {
+    "appId": "com.soundboard.app",
+    "productName": "Soundboard",
+    "win": {
+      "target": [
+        { "target": "nsis", "arch": ["x64"] }
+      ],
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Soundboard"
+    },
+    "files": [
+      "main.js",
+      "index.html",
+      "app.js",
+      "style.css",
+      "assets/**",
+      "sounds/**"
+    ]
+  }
+}
